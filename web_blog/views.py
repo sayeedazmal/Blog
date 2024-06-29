@@ -19,7 +19,7 @@ def Home(request):
     context = {
         "blogs":posts,
     }
-    return render(request, 'home.html',context)
+    return render(request, 'index.html',context)
 
 def Blog(request):
 
@@ -103,7 +103,7 @@ def searchBlog(request):
     context={
         "blog":posts,
     }
-    return render(request,'home.html',context)
+    return render(request,'index.html',context)
 
 def post_details(request,slug):
     form = TextForm()
