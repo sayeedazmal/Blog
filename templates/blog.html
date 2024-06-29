@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} blog list {% endblock %}
+
+{% block content %}
+  <section class="blog-posts grid-system">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="all-blog-posts">
+
+            <div class="row">
+            {% for blog in blogs %}
+              <div class="col-lg-6">
+                <div class="blog-post">
+                  <div class="blog-thumb">
+                    <img style="width:350px; height:165px;" src="{{ blog.banner.url }}" alt="">
+                  </div>
+                  <div class="down-content">
+                    <a href="{% url 'details' blog.slug %}"><h4>{{ blog.post_title }}</h4></a>
+                    <ul class="post-info">
+                      <li><a href="#">{{blog.user.customuser}}</a></li>
+                      <li><a href="#">{{blog.created_date}}</a></li>
+                      <li><a href="#">12 {{blog.blog_comments.all.count}}</a></li>
+                    </ul>
+                    {% comment %} <p>{{blog.description |striptags|safe|truncatewords:50}}</p> {% endcomment %}
+                    <div class="post-options">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <ul class="post-tags">
+                            {% if blog.tags.all.count > 0 %}
+                            {% for tag in blog.tags.all%}
+                              <li><i class="fa fa-tags"></i></li>
+                              <li><a href="#">{{tag.title}}</a> </li>
+                            {% endfor %}
+                            {% else %}
+                              None
+                            {% endif %}
+                            
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            <div class="col-lg-12">
+             {% include 'paginator.html' %}
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+        {% include 'common/sidebar.html' %}
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock content %}
+  </body>
+</html>

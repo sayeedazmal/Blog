@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} notification {% endblock %}
+
+{% block content %}
+        <section class="notification">
+            <div class="container">
+            <div class="row justify-content-center py-1">
+                {% if notifications %}
+                <div class="col-md-12"></div>
+                    <ul>
+                    {% for notification in notifications %}
+                    {% if notification.content_object  %}
+                        <li>
+                        {% if notification.notification_type == 'Post' or notification.notification_type == 'Like' %}
+                            <a class="text-docoration-none" href="{% url 'details' notification.content_object.slug %}">
+                            <p>{{notification.text}}</p>
+                            <p>{{notification.created_date|timesince}} ago </p>
+                            </a>
+                        {% elif notification.notification_type == 'Follow' %}
+                            <a class="text-docoration-none" href="{% url 'user_profile' notification.content_object.followed_by.user_name %}">
+                            <p>{{notification.text}}</p>
+                            <p>{{notification.created_date|timesince}} ago </p>
+                            </a>
+                        {% endif %}
+                        </li>
+                        <hr>
+                    {% endif %}
+                   
+                    {% endfor %}
+                    
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div> 
+    </section>
+{% endblock content %}

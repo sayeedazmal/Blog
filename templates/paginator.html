@@ -1,0 +1,13 @@
+    <ul class="page-numbers">
+        {% if blogs.has_previous %}
+            <li><a href="?page={{blogs}}"><i class="fa fa-angle-double-right"></i></a></li>
+        {% endif %}
+        {% for page in blogs.paginator.page_range %}
+            <li><a href="?page={{page}}">{{page}}</a></li>
+        {% endfor %}
+        {% if page_blogsobj.has_next %}
+        <li><a href="?page={{blogs}}"><i class="fa fa-angle-double-right"></i></a></li>
+        {% endif %}
+    
+    
+    </ul>

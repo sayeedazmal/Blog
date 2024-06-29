@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}home{% endblock title%}
+{% block content %}
+ {% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+{% include 'common/banner.html' %}
+<section class="blog-posts">
+     
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="all-blog-posts">
+              <div class="row">
+                {% for blogs in blogs|slice:"8" %}
+                <div class="col-lg-12">
+                  <div class="blog-post">
+                    <div class="blog-thumb">
+                      <img src="{{ blogs.banner.url }}" alt="">
+                    </div>
+                    <div class="down-content">
+                      <span>{{blogs.category.title}}</span>
+                      <a href="{% url 'details' blogs.slug %}"><h4>{{blogs.post_title}}</h4></a>
+                      <ul class="post-info">
+                        <li><a href="{% url 'user_profile' blogs.user.user_name %}">{{blogs.user.user_name}}</a></li>
+                        <li><a href="#">{{blogs.created_date}}</a></li>
+                        <li><a href="#">{{blogs.blog_comments.all.count}}</a></li>
+                      </ul>
+                      <p>{{blogs.description|striptags|safe|truncatewords:50 }}</p>
+                      <div class="post-options">
+                        <div class="row">
+                          <div class="col-6">
+                            <ul class="post-tags">
+                            {% if blogs.tags.all.count > 0 %}
+                            {% for tag in blogs.tags.all%}
+                              <li><i class="fa fa-tags"></i></li>
+                              <li><a href="#">{{tag.title}}</a> </li>
+                            {% endfor %}
+                            {% else %}
+                              None
+                            {% endif %}
+                            </ul>
+                          </div>
+                          <div class="col-6">
+                            <ul class="post-share">
+                              <li><i class="fa fa-share-alt"></i></li>
+                              <li><a href="#">Facebook</a> </li>
+                              <li><a href="#"> Twitter</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        
+        <div class="col-lg-4">
+          {% include 'common/sidebar.html' %}
+        </div>
+        </div>
+      </div>
+    </section>
+ {% endblock content%}
+ 

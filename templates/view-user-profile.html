@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Profile {% endblock %}
+
+
+{% block content %}
+
+<section class="profile" >
+    <div class="container-fluid" >
+        <div class="row py-5">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <img src="{{account_user.get_profile_image}}" class="rounded rounded-circle prof-pic" alt="">
+                    <ul class="text-center py-3">
+                      <li class="py-1" > <span> Posts: <strong> {{account_user.user_blogs.count}} </strong> </span></li> 
+                      <li class="py-1">Followers: {{account_user.user_followers.count}}</li> 
+                      <li class="py-1">Following: {{account_user.user_follows.count}}</li>
+                      <li class="py-1">
+                        {% if following %}
+                        <a class='btn btn-primary mt-2' href="{% url 'follow_or_unfollow_user' account_user.id %}">Unfollow</a>
+                        {% if muted %}
+                         <a class='btn btn-primary mt-2' href="{% url 'muted_unmuted' account_user.id %}">unmuted</a>
+                        {% else %}
+                         <a class='btn btn-primary mt-2' href="{% url 'muted_unmuted' account_user.id %}">muted</a>
+                        {% endif %}
+                        {% else %}
+                        <a class='btn btn-primary mt-2' href="{% url 'follow_or_unfollow_user' account_user.id %}">Follow</a>
+                        {% endif %}
+                      </li>    
+                    </ul>
+                     
+                </div>
+             
+
+            </div>
+            <div class="col-md-8 ">
+             <div class="row col-md-12">
+                <h1>{{account_user.user_name}}'s blogs</h1>
+             </div>
+             <hr>
+             <div class="row col-md-12">
+                <ul>
+                    {% for blog in account_user.user_blogs.all %}
+                    <li>
+                        <a href="{% url 'details' blog.slug %}">
+                          <h4>{{blog.post_title}}</h4>
+                          <p>{{blog.description|safe|truncatewords:10}}</p>
+                          <p>{{blog.created_date}}</p>
+                        </a>
+                        
+                    </li>
+                    <hr>
+                   
+                    {% endfor %}
+                </ul>
+             </div>
+            </div> 
+        </div>
+    </div>
+</section>
+<script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+
+    myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus()
+    })
+
+</script>
+{% endblock content %}

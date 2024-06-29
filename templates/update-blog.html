@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}update blog {% endblock title %}
+
+{% block content %}
+    
+  <section>
+      <div class="container-fluid" >
+          <div class="row" style="display: block; width: 50%; margin: 0 auto;" >
+          <form method="POST" action="" enctype="multipart/form-data">
+            {{form.media}}
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label mt-5"style="display: block;">Category</label>
+              <select class="form-select p-2" name="category"   style="width: 100%;" aria-label="Default select example">
+                
+                {% for cat in categories %}
+                <option value={{cat.id}} {% if form.instance.category.pk == cat.pk %}selected {% endif %}>{{cat.title}}</option>
+                {% endfor %}
+              
+              </select>
+
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Post Title</label>
+              <input type="text" name="post_title" value="{{form.instance.post_title}}" class="form-control" id="exampleFormControlInput1" placeholder="title">
+              <p class="text-danger py-1">{{form.instance.post_title.errors}}</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+              {{form.description|safe}}
+              <p class="text-danger py-1">{{form.instance.description.errors}}</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Post Image</label>
+              <input class="form-control" name='banner' value="{{form.instance.banner.url}}" type="file" id="formFile">
+              <p class="text-danger py-1">{{form.instance.banner.errors}}</p>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Tags</label>
+              <textarea class="form-control" type="text" name="tags" rows="3" placeholder="enter comma separeted value">{{form.instance.tags}}</textarea>
+              <p class="text-danger py-1">{{form.instance.tags.errors}}</p>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Update</button>
+          </div>
+        </form>
+      </div>
+  </section>
+
+
+{% endblock content %}

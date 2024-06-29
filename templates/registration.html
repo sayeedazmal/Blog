@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %} 
+     <section class="contact-us">
+      <div class="container">
+       {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{message}}</strong>.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="row">
+        
+          <div class="col-lg-12">
+            <div class="down-contact">
+              <div class="row">
+                <div class="col-lg-8 loginform">
+                  <div class="sidebar-item contact-form">
+                    <div class="sidebar-heading">
+                      <h2 style="text-align:center">Create Your Account</h2>
+                    </div>
+                    <div class="content">
+                      <form id="contact" action="{% url 'reg' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                           <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                              <input name="user_name" type="text" id="username" placeholder="username">
+                              <p class="py-1 text-danger" style="color;">{{form.user_name.errors}}</p>
+                              </fieldset>
+                          </div>
+                           <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                              <input name="email" type="email" id="email" placeholder="email" >
+                              <p class="py-1 text-danger errors">{{form.email.errors}}</p>
+                              </fieldset>
+                          </div>
+                          
+                          <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                              <input name="password" type="password" id="password" placeholder="password">
+                              <p class="py-1 text-danger errors">{{form.password.errors}}</p>
+                              </fieldset>
+                          </div>
+                          <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                              <input name="confirm_password" type="password" id="confirm_password" placeholder="cofirm password" >
+                              <p class="py-1 text-danger errors">{{form.confirm_password.errors}}</p>
+                            </fieldset>
+                          </div>
+                          <br><br>
+                          <div class="col-md-12 col-sm-12">
+                            <fieldset>
+                             <p>if you are logged please click <strong> <a href="{% url 'login' %}">Login</strong></a></p>
+                             <br>
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <button style="width:100%;" type="submit" id="form-submit" class="main-button">Signup</button>
+                            </fieldset>
+                          </div>
+                        </div>
+                      </form>
+                      
+                    </div>
+                  </div>
+                   <br><br><br><br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+
+{% endblock content %}
