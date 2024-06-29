@@ -14,7 +14,7 @@ from django.utils.text import slugify
 
 
 #index section
-def Home(request):
+def Index(request):
     posts = Post.objects.order_by('-created_date')
     context = {
         "blogs":posts,
