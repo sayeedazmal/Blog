@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7xs(4o1wt=8@_9j3pl6r#=#7&x*tk39)m#*&b%5ema^9i^tuh%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1','sayeed.pythonanywhere.com']
 
 AUTH_USER_MODEL = 'custom_user.CustomUser'
 AUTHENTICATION_BACKENDS = ['custom_user.backend.UsernameOrEmail']

@@ -1,2 +1,2 @@
 pip3.8 install pythonanywhere
-pa_autoconfigure_django.py --python=3.10 https://github.com/sayeedazmal/blog.git
+pa_autoconfigure_django.py --python=3.8 https://github.com/sayeedazmal/blog.git
